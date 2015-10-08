@@ -6,6 +6,8 @@ import (
 	"io"
 	"strings"
 	"time"
+
+	"golang.org/x/net/html/charset"
 )
 
 type rss2Feed struct {
@@ -30,6 +32,7 @@ func ParseRss2(b []byte) (Feed, error) {
 	var rss rss2Feed
 
 	decoder := xml.NewDecoder(bytes.NewReader(b))
+	decoder.CharsetReader = charset.NewReaderLabel
 	decoder.DefaultSpace = "parserfeed"
 
 	if err := decoder.Decode(&rss); err != nil {

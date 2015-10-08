@@ -5,6 +5,8 @@ import (
 	"encoding/xml"
 	"io"
 	"time"
+
+	"golang.org/x/net/html/charset"
 )
 
 type atomFeed struct {
@@ -36,6 +38,7 @@ func ParseAtom(b []byte) (Feed, error) {
 	var rss atomFeed
 
 	decoder := xml.NewDecoder(bytes.NewReader(b))
+	decoder.CharsetReader = charset.NewReaderLabel
 	decoder.DefaultSpace = "parserfeed"
 
 	if err := decoder.Decode(&rss); err != nil {
