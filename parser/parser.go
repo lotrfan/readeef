@@ -42,6 +42,7 @@ func parseDate(date string) (time.Time, error) {
 		time.RFC3339,
 		time.RFC3339Nano,
 		http.TimeFormat,
+		"Mon, 2 Jan 2006 15:04:05 GMT", // http.TimeFormat, but without leading zeros
 	}
 
 	date = strings.TrimSpace(date)
